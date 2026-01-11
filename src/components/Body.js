@@ -69,16 +69,18 @@ const mockRestaurants = [
   }
 ];
 
-const Body = () => {
-  const [listOfRestaurants, setListOfRestaurants] = useState([]);
-  const [filteredRestaurant, setFilteredRestaurant] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [loading, setLoading] = useState(true);
-  
-  // ALWAYS CALL HOOKS AT THE TOP LEVEL, BEFORE ANY CONDITIONAL RETURNS
-  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
-  const OnlineStatus = useOnlineStatus();
-  const { loggedInUser, setUserName } = useContext(UserContext);
+
+
+const Body=()=>{
+    const [listOfRestaurants,setListOfRestaurants]=useState([]);
+    const [filteredRestaurant,setFilteredRestaurant]=useState([]);
+    const [searchText, setSearchText] = useState("");
+    const [loading, setLoading] = useState(true);
+    const { loggedInUser, setUserName } = useContext(UserContext); 
+    const OnlineStatus=useOnlineStatus();
+    const RestaurantCardPromoted=withPromotedLabel(RestaurantCard);
+    
+
 
   useEffect(() => {
     fetchData();
@@ -88,8 +90,8 @@ const Body = () => {
     try {
       setLoading(true);
       
-      // Option 2: Use mock data (for development/testing)
-      // Simulate API delay
+     
+  
       setTimeout(() => {
         setListOfRestaurants(mockRestaurants);
         setFilteredRestaurant(mockRestaurants);
@@ -99,7 +101,7 @@ const Body = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
       
-      // Fallback to mock data on error
+   
       setListOfRestaurants(mockRestaurants);
       setFilteredRestaurant(mockRestaurants);
       setLoading(false);
@@ -135,7 +137,7 @@ const Body = () => {
             className="px-4 py-2 m-4 bg-green-100 rounded-lg hover:bg-green-200"
             onClick={() => {
               if (searchText.trim() === "") {
-                // If search is empty, show all restaurants
+                
                 setFilteredRestaurant(listOfRestaurants);
               } else {
                 const filtered = listOfRestaurants.filter((res) =>
@@ -150,7 +152,7 @@ const Body = () => {
           <button
             className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200"
             onClick={() => {
-              // Clear search and show all
+           
               setSearchText("");
               setFilteredRestaurant(listOfRestaurants);
             }}
